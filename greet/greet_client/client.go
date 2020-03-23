@@ -13,7 +13,7 @@ func main() {
 
 	fmt.Println("Hello I'm a client")
 	// Create a connection
-	conn, err := grpc.Dial("lovalhost:50051", grpc.WithInsecure())
+	conn, err := grpc.Dial("localhost:50051", grpc.WithInsecure())
 	if err != nil {
 		log.Fatalf("could not connect: %v", err)
 	}
