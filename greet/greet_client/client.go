@@ -28,6 +28,7 @@ func main() {
 }
 
 func doUnary(c greetpb.GreetServiceClient) {
+	fmt.Println("Starting to do Unary RPC...")
 	req := &greetpb.GreetRequest{
 		Greeting: &greetpb.Greeting{
 			FirstName: "Hendrik",
