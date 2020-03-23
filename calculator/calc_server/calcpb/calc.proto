@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package  calulator;
+option  go_package="calcpb";
+
+message Opperands {
+    int64 num1 = 1;
+    int64 num2 = 2;
+}
+message SumRequest {
+    Opperands opperands =1;
+}
+message SumResponse{
+    int64 sum = 1;
+}
+service SumService{
+    rpc Sum(SumRequest) returns (SumResponse){};
+};
