@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"log"
 	"net"
@@ -17,7 +18,21 @@ func (*server) Sum(ctx context.Context, sreq *calcpb.SumRequest) (*calcpb.SumRes
 	fmt.Printf("Sum function was invoked... %v\n", sreq)
 	num1 := sreq.GetOpperands().GetNum1()
 	num2 := sreq.GetOpperands().GetNum2()
-	sum := num2 + num1
+	opperation := sreq.GetOpperator().GetOpperator()
+	var sum float64
+	switch opperation {
+	case "add":
+		sum = float64(num2 + num1)
+	case "sub":
+		sum = float64(num1 - num2)
+	case "mult":
+		sum = float64(num1 * num2)
+	case "div":
+		sum = float64(num1 / num2)
+	default:
+		fmt.Println("Supply the correct opperation(add, sub, mult, div)")
+		return nil, errors.New("Opperation error")
+	}
 	res := &calcpb.SumResponse{
 		Sum: sum,
 	}

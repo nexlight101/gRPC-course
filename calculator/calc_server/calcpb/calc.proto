@@ -7,11 +7,17 @@ message Opperands {
     int64 num1 = 1;
     int64 num2 = 2;
 }
+
+message Opperator {
+    string opperator = 1;
+}
+
 message SumRequest {
     Opperands opperands =1;
+    Opperator opperator =2;
 }
 message SumResponse{
-    int64 sum = 1;
+    double sum = 1;
 }
 service SumService{
     rpc Sum(SumRequest) returns (SumResponse){};
