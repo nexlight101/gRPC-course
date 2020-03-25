@@ -14,16 +14,17 @@ import (
 type server struct{}
 
 // LongGreet receives a stream of request from client and returns a  response once stream completes.
-func (*server) LongGreet(stream averagepb.AverageService_LongGreetServer) error {
+func (*server) LongAverage(stream averagepb.AverageService_LongAverageServer) error {
 	fmt.Printf("GreetManyTimes function was invoked with a streaming request\n")
-	count := 0
-	var avg int
+	var count float64 = 0
+	var avg float64
 	for {
 		req, err := stream.Recv()
 		if err == io.EOF {
+			// fmt.Printf("avg: %.1f count: %.1f\n", avg, count)
 			// we have finished reading the client stream
 			return stream.SendAndClose(&averagepb.LongAverageResponse{
-				Result: float64(avg / count), // Average to return to client
+				Result: avg / count, // Average to return to client
 			})
 		}
 		if err != nil {
@@ -31,7 +32,7 @@ func (*server) LongGreet(stream averagepb.AverageService_LongGreetServer) error 
 			return err
 		}
 		number := req.GetAverage().GetNumber()
-		avg += int(number)
+		avg += float64(number)
 		count++
 	}
 

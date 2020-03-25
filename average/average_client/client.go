@@ -6,7 +6,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/nexlight101/grpc-go-course/greet/greet_server/greetpb"
+	"github.com/nexlight101/grpc-go-course/average/average_server/averagepb"
 	"google.golang.org/grpc"
 )
 
@@ -22,61 +22,41 @@ func main() {
 	defer conn.Close()
 
 	// Create a new client
-	c := greetpb.NewGreetServiceClient(conn)
+	c := averagepb.NewAverageServiceClient(conn)
 	// fmt.Printf("Created client %f", c)
 	// doUnary(c)
 	doClientStreaming(c)
 
 }
 
-func doUnary(c greetpb.GreetServiceClient) {
-	fmt.Println("Starting to do Unary RPC...")
-	req := &greetpb.GreetRequest{
-		Greeting: &greetpb.Greeting{
-			FirstName: "Hendrik",
-			LastName:  "Pienaar",
-		},
-	}
-	res, err := c.Greet(context.Background(), req)
-	if err != nil {
-		log.Fatalf("error while calling Greet RPC: %v", err)
-	}
-	log.Printf("Response  from Greet: %v", res.Result)
-}
-
-func doClientStreaming(c greetpb.GreetServiceClient) {
+func doClientStreaming(c averagepb.AverageServiceClient) {
 	fmt.Println("Starting to do Client Streaming RPC...")
 
-	requests := []*greetpb.LongGreetRequest{
-		&greetpb.LongGreetRequest{
-			Greeting: &greetpb.Greeting{
-				FirstName: "Hendrik",
+	requests := []*averagepb.LongAverageRequest{
+		&averagepb.LongAverageRequest{
+			Average: &averagepb.Average{
+				Number: 1,
 			},
 		},
-		&greetpb.LongGreetRequest{
-			Greeting: &greetpb.Greeting{
-				FirstName: "Jhonny",
+		&averagepb.LongAverageRequest{
+			Average: &averagepb.Average{
+				Number: 2,
 			},
 		},
-		&greetpb.LongGreetRequest{
-			Greeting: &greetpb.Greeting{
-				FirstName: "Cobus",
+		&averagepb.LongAverageRequest{
+			Average: &averagepb.Average{
+				Number: 3,
 			},
 		},
-		&greetpb.LongGreetRequest{
-			Greeting: &greetpb.Greeting{
-				FirstName: "Danniele",
-			},
-		},
-		&greetpb.LongGreetRequest{
-			Greeting: &greetpb.Greeting{
-				FirstName: "Michele",
+		&averagepb.LongAverageRequest{
+			Average: &averagepb.Average{
+				Number: 4,
 			},
 		},
 	}
-	stream, err := c.LongGreet(context.Background())
+	stream, err := c.LongAverage(context.Background())
 	if err != nil {
-		log.Fatalf("error while calling LongGreet: %v", err)
+		log.Fatalf("error while calling LongAverage: %v", err)
 	}
 	// we uterate over our slice and send each message individually
 	for _, req := range requests {
@@ -86,7 +66,7 @@ func doClientStreaming(c greetpb.GreetServiceClient) {
 	}
 	res, err := stream.CloseAndRecv()
 	if err != nil {
-		log.Fatalf("error while receiving response from LongGreet: %v", err)
+		log.Fatalf("error while receiving response from LongAverage: %v", err)
 	}
-	fmt.Printf("LongGreet Response: %v\n", res)
+	fmt.Printf("LongAverage Response: %.1f\n", res.Result)
 }

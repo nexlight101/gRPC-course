@@ -152,7 +152,7 @@ func init() {
 }
 
 var fileDescriptor_c3d2ccb5404230a3 = []byte{
-	// 195 bytes of a gzipped FileDescriptorProto
+	// 190 bytes of a gzipped FileDescriptorProto
 	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xd2, 0x4b, 0x2c, 0x4b, 0x2d,
 	0x4a, 0x4c, 0x4f, 0xd5, 0x87, 0xd2, 0xf1, 0xc5, 0xa9, 0x45, 0x65, 0xa9, 0x45, 0x30, 0x6e, 0x41,
 	0x12, 0x8c, 0xa5, 0x57, 0x50, 0x94, 0x5f, 0x92, 0x2f, 0xc4, 0x0e, 0xe5, 0x2a, 0x29, 0x72, 0xb1,
@@ -161,11 +161,10 @@ var fileDescriptor_c3d2ccb5404230a3 = []byte{
 	0x50, 0x6a, 0x61, 0x69, 0x6a, 0x71, 0x89, 0x90, 0x16, 0x17, 0xcc, 0x0c, 0xb0, 0x72, 0x6e, 0x23,
 	0x01, 0x98, 0x1b, 0xf4, 0x60, 0x2a, 0xe1, 0x96, 0xe8, 0x72, 0x09, 0xa3, 0x98, 0x50, 0x5c, 0x90,
 	0x9f, 0x57, 0x0c, 0xb6, 0xb0, 0x28, 0xb5, 0xb8, 0x34, 0xa7, 0x04, 0x6c, 0x02, 0x63, 0x10, 0x94,
-	0x67, 0x14, 0xc3, 0xc5, 0x07, 0x55, 0x1a, 0x9c, 0x5a, 0x54, 0x96, 0x99, 0x9c, 0x2a, 0xe4, 0xc5,
-	0xc5, 0x09, 0x32, 0xc0, 0xbd, 0x28, 0x35, 0xb5, 0x44, 0x48, 0x1a, 0x6e, 0x11, 0xa6, 0xb3, 0xa4,
-	0x64, 0xb0, 0x4b, 0x42, 0x6c, 0x54, 0x62, 0xd0, 0x60, 0x74, 0xe2, 0x8e, 0xe2, 0x84, 0x87, 0x4a,
-	0x12, 0x1b, 0x38, 0x38, 0x8c, 0x01, 0x01, 0x00, 0x00, 0xff, 0xff, 0x32, 0x49, 0x46, 0x05, 0x40,
-	0x01, 0x00, 0x00,
+	0x67, 0x14, 0xc7, 0xc5, 0x07, 0x55, 0x1a, 0x9c, 0x5a, 0x54, 0x96, 0x99, 0x9c, 0x2a, 0xe4, 0xc3,
+	0xc5, 0x8d, 0x64, 0x80, 0x90, 0x34, 0xdc, 0x2a, 0x4c, 0x87, 0x49, 0xc9, 0x60, 0x97, 0x84, 0xd8,
+	0xa9, 0xc4, 0xa0, 0xc1, 0xe8, 0xc4, 0x1d, 0xc5, 0x09, 0x0f, 0x97, 0x24, 0x36, 0x70, 0x80, 0x18,
+	0x03, 0x02, 0x00, 0x00, 0xff, 0xff, 0xca, 0x40, 0x3c, 0xa7, 0x42, 0x01, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -181,7 +180,7 @@ const _ = grpc.SupportPackageIsVersion6
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type AverageServiceClient interface {
 	// Client Streaming
-	LongGreet(ctx context.Context, opts ...grpc.CallOption) (AverageService_LongGreetClient, error)
+	LongAverage(ctx context.Context, opts ...grpc.CallOption) (AverageService_LongAverageClient, error)
 }
 
 type averageServiceClient struct {
@@ -192,30 +191,30 @@ func NewAverageServiceClient(cc grpc.ClientConnInterface) AverageServiceClient {
 	return &averageServiceClient{cc}
 }
 
-func (c *averageServiceClient) LongGreet(ctx context.Context, opts ...grpc.CallOption) (AverageService_LongGreetClient, error) {
-	stream, err := c.cc.NewStream(ctx, &_AverageService_serviceDesc.Streams[0], "/average.AverageService/LongGreet", opts...)
+func (c *averageServiceClient) LongAverage(ctx context.Context, opts ...grpc.CallOption) (AverageService_LongAverageClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_AverageService_serviceDesc.Streams[0], "/average.AverageService/LongAverage", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &averageServiceLongGreetClient{stream}
+	x := &averageServiceLongAverageClient{stream}
 	return x, nil
 }
 
-type AverageService_LongGreetClient interface {
+type AverageService_LongAverageClient interface {
 	Send(*LongAverageRequest) error
 	CloseAndRecv() (*LongAverageResponse, error)
 	grpc.ClientStream
 }
 
-type averageServiceLongGreetClient struct {
+type averageServiceLongAverageClient struct {
 	grpc.ClientStream
 }
 
-func (x *averageServiceLongGreetClient) Send(m *LongAverageRequest) error {
+func (x *averageServiceLongAverageClient) Send(m *LongAverageRequest) error {
 	return x.ClientStream.SendMsg(m)
 }
 
-func (x *averageServiceLongGreetClient) CloseAndRecv() (*LongAverageResponse, error) {
+func (x *averageServiceLongAverageClient) CloseAndRecv() (*LongAverageResponse, error) {
 	if err := x.ClientStream.CloseSend(); err != nil {
 		return nil, err
 	}
@@ -229,40 +228,40 @@ func (x *averageServiceLongGreetClient) CloseAndRecv() (*LongAverageResponse, er
 // AverageServiceServer is the server API for AverageService service.
 type AverageServiceServer interface {
 	// Client Streaming
-	LongGreet(AverageService_LongGreetServer) error
+	LongAverage(AverageService_LongAverageServer) error
 }
 
 // UnimplementedAverageServiceServer can be embedded to have forward compatible implementations.
 type UnimplementedAverageServiceServer struct {
 }
 
-func (*UnimplementedAverageServiceServer) LongGreet(srv AverageService_LongGreetServer) error {
-	return status.Errorf(codes.Unimplemented, "method LongGreet not implemented")
+func (*UnimplementedAverageServiceServer) LongAverage(srv AverageService_LongAverageServer) error {
+	return status.Errorf(codes.Unimplemented, "method LongAverage not implemented")
 }
 
 func RegisterAverageServiceServer(s *grpc.Server, srv AverageServiceServer) {
 	s.RegisterService(&_AverageService_serviceDesc, srv)
 }
 
-func _AverageService_LongGreet_Handler(srv interface{}, stream grpc.ServerStream) error {
-	return srv.(AverageServiceServer).LongGreet(&averageServiceLongGreetServer{stream})
+func _AverageService_LongAverage_Handler(srv interface{}, stream grpc.ServerStream) error {
+	return srv.(AverageServiceServer).LongAverage(&averageServiceLongAverageServer{stream})
 }
 
-type AverageService_LongGreetServer interface {
+type AverageService_LongAverageServer interface {
 	SendAndClose(*LongAverageResponse) error
 	Recv() (*LongAverageRequest, error)
 	grpc.ServerStream
 }
 
-type averageServiceLongGreetServer struct {
+type averageServiceLongAverageServer struct {
 	grpc.ServerStream
 }
 
-func (x *averageServiceLongGreetServer) SendAndClose(m *LongAverageResponse) error {
+func (x *averageServiceLongAverageServer) SendAndClose(m *LongAverageResponse) error {
 	return x.ServerStream.SendMsg(m)
 }
 
-func (x *averageServiceLongGreetServer) Recv() (*LongAverageRequest, error) {
+func (x *averageServiceLongAverageServer) Recv() (*LongAverageRequest, error) {
 	m := new(LongAverageRequest)
 	if err := x.ServerStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -276,8 +275,8 @@ var _AverageService_serviceDesc = grpc.ServiceDesc{
 	Methods:     []grpc.MethodDesc{},
 	Streams: []grpc.StreamDesc{
 		{
-			StreamName:    "LongGreet",
-			Handler:       _AverageService_LongGreet_Handler,
+			StreamName:    "LongAverage",
+			Handler:       _AverageService_LongAverage_Handler,
 			ClientStreams: true,
 		},
 	},

@@ -18,5 +18,5 @@ message LongAverageResponse{
 
 service AverageService{
     // Client Streaming 
-    rpc LongGreet(stream LongAverageRequest) returns (LongAverageResponse){};
+    rpc LongAverage(stream LongAverageRequest) returns (LongAverageResponse){};
 };
