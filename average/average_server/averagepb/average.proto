@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package  average;
+option  go_package="averagepb";
+
+message Average {
+    int32 number = 1;
+}
+
+message LongAverageRequest{
+    Average average = 1;
+}
+
+message LongAverageResponse{
+    double result=1;
+}
+
+
+service AverageService{
+    // Client Streaming 
+    rpc LongGreet(stream LongAverageRequest) returns (LongAverageResponse){};
+};
