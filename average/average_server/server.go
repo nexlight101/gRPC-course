@@ -1,47 +1,38 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"io"
 	"log"
 	"net"
 
-	"github.com/nexlight101/grpc-go-course/greet/greet_server/greetpb"
+	"github.com/nexlight101/grpc-go-course/average/average_server/averagepb"
 	"google.golang.org/grpc"
 )
 
 // Create server struct
 type server struct{}
 
-func (*server) Greet(ctx context.Context, req *greetpb.GreetRequest) (*greetpb.GreetResponse, error) {
-	fmt.Printf("Greet function was invoked with %v\n", req)
-	firstName := req.GetGreeting().GetFirstName()
-	result := "Hello " + firstName
-	res := &greetpb.GreetResponse{
-		Result: result,
-	}
-	return res, nil
-}
-
 // LongGreet receives a stream of request from client and returns a  response once stream completes.
-func (*server) LongGreet(stream greetpb.GreetService_LongGreetServer) error {
+func (*server) LongGreet(stream averagepb.AverageService_LongGreetServer) error {
 	fmt.Printf("GreetManyTimes function was invoked with a streaming request\n")
-	result := "Hello "
+	count := 0
+	var avg int
 	for {
 		req, err := stream.Recv()
 		if err == io.EOF {
 			// we have finished reading the client stream
-			return stream.SendAndClose(&greetpb.LongGreetResponse{
-				Result: result,
+			return stream.SendAndClose(&averagepb.LongAverageResponse{
+				Result: float64(avg / count), // Average to return to client
 			})
 		}
 		if err != nil {
 			log.Fatalf("Cannot read from client stream: %v", err)
 			return err
 		}
-		firstName := req.GetGreeting().GetFirstName()
-		result += firstName + "! "
+		number := req.GetAverage().GetNumber()
+		avg += int(number)
+		count++
 	}
 
 }
@@ -55,7 +46,7 @@ func main() {
 	}
 	// Create a new grpc server.
 	s := grpc.NewServer()
-	greetpb.RegisterGreetServiceServer(s, &server{})
+	averagepb.RegisterAverageServiceServer(s, &server{})
 	// Serve the listener.
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
