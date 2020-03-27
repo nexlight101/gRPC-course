@@ -76,7 +76,7 @@ func doBiDiStreaming(c greetpb.GreetServiceClient) {
 		}
 		stream.CloseSend()
 	}()
-	// we receive a bunch of messages from the client (go routine)
+	// we receive a bunch of messages from the server (go routine) listening to the server
 	go func() {
 		// function to receive a bunch of messages
 		for {
