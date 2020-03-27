@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package  maximum;
+option  go_package="maximumpb";
+
+message Maximum{
+    int32 number=1;
+}
+message MaxEveryoneRequest{
+    Maximum maximum =1;
+}
+
+message MaxEveryoneResponse{
+    int32 result = 1;
+}
+service MaxService{
+    // BiDi streamer for maximum
+    rpc MaxEveryone(stream MaxEveryoneRequest) returns (stream MaxEveryoneResponse){};
+};
+
