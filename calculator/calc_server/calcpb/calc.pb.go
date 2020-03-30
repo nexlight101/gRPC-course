@@ -196,11 +196,91 @@ func (m *SumResponse) GetSum() float64 {
 	return 0
 }
 
+type SquareRootRequest struct {
+	Number               int32    `protobuf:"varint,1,opt,name=number,proto3" json:"number,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SquareRootRequest) Reset()         { *m = SquareRootRequest{} }
+func (m *SquareRootRequest) String() string { return proto.CompactTextString(m) }
+func (*SquareRootRequest) ProtoMessage()    {}
+func (*SquareRootRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_df39afad19512503, []int{4}
+}
+
+func (m *SquareRootRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SquareRootRequest.Unmarshal(m, b)
+}
+func (m *SquareRootRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SquareRootRequest.Marshal(b, m, deterministic)
+}
+func (m *SquareRootRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SquareRootRequest.Merge(m, src)
+}
+func (m *SquareRootRequest) XXX_Size() int {
+	return xxx_messageInfo_SquareRootRequest.Size(m)
+}
+func (m *SquareRootRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_SquareRootRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SquareRootRequest proto.InternalMessageInfo
+
+func (m *SquareRootRequest) GetNumber() int32 {
+	if m != nil {
+		return m.Number
+	}
+	return 0
+}
+
+type SquareRootReponse struct {
+	NumberRoot           float64  `protobuf:"fixed64,1,opt,name=number_root,json=numberRoot,proto3" json:"number_root,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *SquareRootReponse) Reset()         { *m = SquareRootReponse{} }
+func (m *SquareRootReponse) String() string { return proto.CompactTextString(m) }
+func (*SquareRootReponse) ProtoMessage()    {}
+func (*SquareRootReponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_df39afad19512503, []int{5}
+}
+
+func (m *SquareRootReponse) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_SquareRootReponse.Unmarshal(m, b)
+}
+func (m *SquareRootReponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_SquareRootReponse.Marshal(b, m, deterministic)
+}
+func (m *SquareRootReponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_SquareRootReponse.Merge(m, src)
+}
+func (m *SquareRootReponse) XXX_Size() int {
+	return xxx_messageInfo_SquareRootReponse.Size(m)
+}
+func (m *SquareRootReponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_SquareRootReponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_SquareRootReponse proto.InternalMessageInfo
+
+func (m *SquareRootReponse) GetNumberRoot() float64 {
+	if m != nil {
+		return m.NumberRoot
+	}
+	return 0
+}
+
 func init() {
 	proto.RegisterType((*Opperands)(nil), "calulator.Opperands")
 	proto.RegisterType((*Opperator)(nil), "calulator.Opperator")
 	proto.RegisterType((*SumRequest)(nil), "calulator.SumRequest")
 	proto.RegisterType((*SumResponse)(nil), "calulator.SumResponse")
+	proto.RegisterType((*SquareRootRequest)(nil), "calulator.SquareRootRequest")
+	proto.RegisterType((*SquareRootReponse)(nil), "calulator.SquareRootReponse")
 }
 
 func init() {
@@ -208,22 +288,25 @@ func init() {
 }
 
 var fileDescriptor_df39afad19512503 = []byte{
-	// 231 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x50, 0x4b, 0x4b, 0xc3, 0x40,
-	0x10, 0x36, 0x8d, 0x14, 0x33, 0xbd, 0xc8, 0xa0, 0x52, 0x44, 0x50, 0x72, 0xaa, 0x97, 0x88, 0x5b,
-	0xf0, 0x07, 0x88, 0x77, 0x61, 0x73, 0xf3, 0x22, 0x69, 0x3a, 0x07, 0x21, 0xfb, 0x70, 0x1f, 0xfd,
-	0xfd, 0x92, 0x59, 0x93, 0x0d, 0x82, 0xa7, 0xfd, 0xf6, 0xe3, 0x7b, 0x31, 0xb0, 0xeb, 0xbb, 0xa1,
-	0x8f, 0x43, 0x17, 0x8c, 0x7b, 0x1a, 0xe1, 0xa7, 0x27, 0x77, 0xa2, 0x84, 0xed, 0x81, 0x9f, 0xc6,
-	0x3a, 0x13, 0x0c, 0x56, 0x7d, 0x37, 0x24, 0x61, 0xbd, 0x87, 0xea, 0xdd, 0x5a, 0x72, 0x9d, 0x3e,
-	0x7a, 0x44, 0x38, 0xd7, 0x51, 0x3d, 0x6f, 0x8b, 0x87, 0x62, 0x57, 0x4a, 0xc6, 0xbf, 0x9c, 0xd8,
-	0xae, 0x66, 0x4e, 0xd4, 0x8f, 0x93, 0x29, 0x18, 0x87, 0x77, 0x50, 0x99, 0xe9, 0xc3, 0xce, 0x4a,
-	0x66, 0xa2, 0x0e, 0x00, 0x6d, 0x54, 0x92, 0xbe, 0x23, 0xf9, 0x80, 0x62, 0xd2, 0xea, 0xa3, 0x67,
-	0xed, 0x46, 0x5c, 0x35, 0xf3, 0x98, 0x66, 0x5e, 0x22, 0xb3, 0x2c, 0x7b, 0xc6, 0xfc, 0xd5, 0x3f,
-	0x9e, 0x60, 0xdc, 0xb2, 0xf5, 0x1e, 0x36, 0xdc, 0xea, 0xad, 0xd1, 0x9e, 0xf0, 0x12, 0x4a, 0x1f,
-	0x15, 0x17, 0x16, 0x72, 0x84, 0xe2, 0x8d, 0x67, 0xb5, 0xe4, 0x4e, 0x5f, 0x3d, 0xe1, 0x0b, 0x94,
-	0x6d, 0x54, 0x78, 0xbd, 0x88, 0xcd, 0xa3, 0x6f, 0x6f, 0xfe, 0xd2, 0x29, 0xb5, 0x3e, 0x7b, 0xbd,
-	0xf8, 0x58, 0xa7, 0xe3, 0x1e, 0xd6, 0x7c, 0xd8, 0xfd, 0x4f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xbf,
-	0xc6, 0x96, 0xa1, 0x84, 0x01, 0x00, 0x00,
+	// 277 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x51, 0x4d, 0x4b, 0xf3, 0x40,
+	0x10, 0x7e, 0xd3, 0xbe, 0x06, 0x33, 0xb9, 0xd8, 0x45, 0xa4, 0x48, 0xa1, 0xb2, 0xa7, 0x8a, 0x10,
+	0x31, 0xf5, 0x17, 0xe8, 0xcd, 0x8b, 0xb0, 0xb9, 0x79, 0x09, 0x49, 0x3a, 0x07, 0x21, 0xd9, 0xd9,
+	0xee, 0x47, 0x7f, 0xbf, 0x64, 0x37, 0x1f, 0x15, 0xe9, 0x69, 0x67, 0x9f, 0x7d, 0xbe, 0x96, 0x81,
+	0x5d, 0x53, 0xb5, 0x8d, 0x6b, 0x2b, 0x4b, 0xfa, 0xb9, 0x1f, 0x4b, 0x83, 0xfa, 0x84, 0x61, 0x56,
+	0xb5, 0x3f, 0x32, 0xa5, 0xc9, 0x12, 0x4b, 0x9a, 0xaa, 0x0d, 0x44, 0xbe, 0x87, 0xe4, 0x53, 0x29,
+	0xd4, 0x95, 0x3c, 0x18, 0xc6, 0xe0, 0xbf, 0x74, 0xdd, 0xcb, 0x3a, 0x7a, 0x88, 0x76, 0x4b, 0xe1,
+	0xe7, 0x01, 0xcb, 0xd7, 0x8b, 0x09, 0xcb, 0xf9, 0xe3, 0x28, 0xb2, 0xa4, 0xd9, 0x06, 0x12, 0x1a,
+	0x2f, 0x5e, 0x99, 0x88, 0x19, 0xe0, 0x16, 0xa0, 0x70, 0x9d, 0xc0, 0xa3, 0x43, 0x63, 0x59, 0x3e,
+	0x72, 0xe5, 0xc1, 0x78, 0x6e, 0x9a, 0xdf, 0x66, 0x53, 0x99, 0x6c, 0x6a, 0x22, 0x66, 0xda, 0xac,
+	0xe9, 0xfd, 0x17, 0x17, 0x34, 0x96, 0xf4, 0x79, 0xea, 0x16, 0x52, 0x9f, 0x6a, 0x14, 0x49, 0x83,
+	0xec, 0x06, 0x96, 0xc6, 0x75, 0x3e, 0x30, 0x12, 0xfd, 0xc8, 0x9f, 0x60, 0x55, 0x1c, 0x5d, 0xa5,
+	0x51, 0x10, 0xd9, 0xb1, 0xdd, 0x1d, 0xc4, 0xd2, 0x75, 0x35, 0x86, 0x6f, 0x5c, 0x89, 0xe1, 0xc6,
+	0x5f, 0x7f, 0x93, 0x83, 0xe7, 0x16, 0xd2, 0xf0, 0x5c, 0x6a, 0x22, 0x3b, 0x78, 0x43, 0x80, 0x7a,
+	0x5e, 0x5e, 0xc2, 0xea, 0x7d, 0x5a, 0x48, 0x81, 0xfa, 0xf4, 0xdd, 0x20, 0xfb, 0x00, 0x98, 0xad,
+	0xd8, 0xe6, 0xec, 0x1f, 0x7f, 0xea, 0xdc, 0x5f, 0x7a, 0xf5, 0xf9, 0xfc, 0xdf, 0xdb, 0xf5, 0x57,
+	0x1c, 0x56, 0x5b, 0xc7, 0x7e, 0xad, 0xfb, 0x9f, 0x00, 0x00, 0x00, 0xff, 0xff, 0xe9, 0x64, 0x22,
+	0x4c, 0x02, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -234,72 +317,78 @@ var _ grpc.ClientConnInterface
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion6
 
-// SumServiceClient is the client API for SumService service.
+// CalculatorServiceClient is the client API for CalculatorService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type SumServiceClient interface {
-	Sum(ctx context.Context, in *SumRequest, opts ...grpc.CallOption) (*SumResponse, error)
+type CalculatorServiceClient interface {
+	// error handling
+	// This rpc will through an exception if the sent number is negative
+	// The error being sent is of type INVALID_ARGUMENT
+	SquareRoot(ctx context.Context, in *SquareRootRequest, opts ...grpc.CallOption) (*SquareRootReponse, error)
 }
 
-type sumServiceClient struct {
+type calculatorServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewSumServiceClient(cc grpc.ClientConnInterface) SumServiceClient {
-	return &sumServiceClient{cc}
+func NewCalculatorServiceClient(cc grpc.ClientConnInterface) CalculatorServiceClient {
+	return &calculatorServiceClient{cc}
 }
 
-func (c *sumServiceClient) Sum(ctx context.Context, in *SumRequest, opts ...grpc.CallOption) (*SumResponse, error) {
-	out := new(SumResponse)
-	err := c.cc.Invoke(ctx, "/calulator.SumService/Sum", in, out, opts...)
+func (c *calculatorServiceClient) SquareRoot(ctx context.Context, in *SquareRootRequest, opts ...grpc.CallOption) (*SquareRootReponse, error) {
+	out := new(SquareRootReponse)
+	err := c.cc.Invoke(ctx, "/calulator.CalculatorService/SquareRoot", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// SumServiceServer is the server API for SumService service.
-type SumServiceServer interface {
-	Sum(context.Context, *SumRequest) (*SumResponse, error)
+// CalculatorServiceServer is the server API for CalculatorService service.
+type CalculatorServiceServer interface {
+	// error handling
+	// This rpc will through an exception if the sent number is negative
+	// The error being sent is of type INVALID_ARGUMENT
+	SquareRoot(context.Context, *SquareRootRequest) (*SquareRootReponse, error)
 }
 
-// UnimplementedSumServiceServer can be embedded to have forward compatible implementations.
-type UnimplementedSumServiceServer struct {
+// UnimplementedCalculatorServiceServer can be embedded to have forward compatible implementations.
+type UnimplementedCalculatorServiceServer struct {
 }
 
-func (*UnimplementedSumServiceServer) Sum(ctx context.Context, req *SumRequest) (*SumResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Sum not implemented")
+func (*UnimplementedCalculatorServiceServer) SquareRoot(ctx context.Context, req *SquareRootRequest) (*SquareRootReponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SquareRoot not implemented")
 }
 
-func RegisterSumServiceServer(s *grpc.Server, srv SumServiceServer) {
-	s.RegisterService(&_SumService_serviceDesc, srv)
+func RegisterCalculatorServiceServer(s *grpc.Server, srv CalculatorServiceServer) {
+	s.RegisterService(&_CalculatorService_serviceDesc, srv)
 }
 
-func _SumService_Sum_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(SumRequest)
+func _CalculatorService_SquareRoot_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SquareRootRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(SumServiceServer).Sum(ctx, in)
+		return srv.(CalculatorServiceServer).SquareRoot(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/calulator.SumService/Sum",
+		FullMethod: "/calulator.CalculatorService/SquareRoot",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SumServiceServer).Sum(ctx, req.(*SumRequest))
+		return srv.(CalculatorServiceServer).SquareRoot(ctx, req.(*SquareRootRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-var _SumService_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "calulator.SumService",
-	HandlerType: (*SumServiceServer)(nil),
+var _CalculatorService_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "calulator.CalculatorService",
+	HandlerType: (*CalculatorServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Sum",
-			Handler:    _SumService_Sum_Handler,
+			MethodName: "SquareRoot",
+			Handler:    _CalculatorService_SquareRoot_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

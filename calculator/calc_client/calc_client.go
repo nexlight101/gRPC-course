@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 	"log"
-	"os"
-	"strconv"
 
 	"github.com/nexlight101/grpc-go-course/calculator/calc_server/calcpb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
 )
 
 func main() {
@@ -23,53 +23,42 @@ func main() {
 	defer conn.Close()
 
 	// Create a new client
-	c := calcpb.NewSumServiceClient(conn)
+	c := calcpb.NewCalculatorServiceClient(conn)
 	// fmt.Printf("Created client %f", c)
-	numb1, numb2, opperator := readArgs()
-	doUnary(c, numb1, numb2, opperator)
+	// numb1, numb2, opperator := readArgs()
+	// doUnary(c, numb1, numb2, opperator)
+	doErrorUnary(c)
 
 }
 
-// Populate the protocol buffer request
-func doUnary(c calcpb.SumServiceClient, num1 int64, num2 int64, opperator string) {
-	fmt.Println("Starting to do Unary RPC...")
-	sreq := &calcpb.SumRequest{
-		Opperands: &calcpb.Opperands{
-			Num1: num1,
-			Num2: num2,
-		},
-		Opperator: &calcpb.Opperator{
-			Opperator: opperator,
-		},
-	}
-	res, err := c.Sum(context.Background(), sreq)
-	if err != nil {
-		log.Fatalf("error while calling calc RPC: %v\n", err)
-	}
-	log.Printf("%d %s %d = %v", sreq.GetOpperands().GetNum1(), sreq.GetOpperator().GetOpperator(), sreq.GetOpperands().GetNum2(), res.Sum)
+// Populate the protocol buffer request for Squareroot
+func doErrorUnary(c calcpb.CalculatorServiceClient) {
+	fmt.Println("Starting to do Squareroot Unary RPC...")
+	number := int32(10)
+	//correct call
+	doErrorCall(c, number)
+
+	number = -10
+	doErrorCall(c, number)
+	//error call
 }
 
-func readArgs() (num1 int64, num2 int64, opperator string) {
-	fmt.Println("Please enter 2 numbers to (add, sub, mult, div)!")
-	if len(os.Args) != 4 {
-		log.Fatalln("Usage: number1 number2 opperation(add, sub, mult, div) enter")
-		return
-	}
-	num1c, err := strconv.Atoi(os.Args[1])
+func doErrorCall(c calcpb.CalculatorServiceClient, n int32) {
+	res, err := c.SquareRoot(context.Background(), &calcpb.SquareRootRequest{Number: n})
 	if err != nil {
-		log.Fatalln("Cannot convert first number given")
-		return
+		respErr, ok := status.FromError(err)
+		if ok {
+			// actual error from gRPC (user error)
+			fmt.Printf("Error message from server: %v\n", respErr.Message())
+			fmt.Println(respErr.Code())
+			if respErr.Code() == codes.InvalidArgument {
+				fmt.Println("We probably sent a negative number!")
+				return
+			}
+		} else {
+			log.Fatalf("Big Error calling SquareRoot: %v", err)
+			return
+		}
 	}
-	num2c, err := strconv.Atoi(os.Args[2])
-	if err != nil {
-		log.Fatalln("Cannot convert second number given")
-		return
-	}
-
-	opperator = os.Args[3]
-	if num2c == 0 && opperator == "div" {
-		log.Fatalln("Cannot devide by zero")
-		return
-	}
-	return int64(num1c), int64(num2c), opperator
+	fmt.Printf("Result of squareroot of %d: %.1f\n", n, res.GetNumberRoot())
 }

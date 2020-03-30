@@ -19,6 +19,17 @@ message SumRequest {
 message SumResponse{
     double sum = 1;
 }
-service SumService{
-    rpc Sum(SumRequest) returns (SumResponse){};
+
+message SquareRootRequest{
+    int32 number = 1;
+}
+message SquareRootReponse{
+    double number_root = 1;
+}
+
+service CalculatorService{
+    // error handling
+    // This rpc will through an exception if the sent number is negative
+    // The error being sent is of type INVALID_ARGUMENT
+    rpc SquareRoot(SquareRootRequest) returns (SquareRootReponse) {};
 };
