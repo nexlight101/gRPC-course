@@ -37,6 +37,16 @@ func doBiDiStreaming(c maximumpb.MaxServiceClient) {
 		log.Fatalf("Error while creating stream: %v", err)
 		return
 	}
+	// Short way of creating the slice
+
+	// numbers := []int32{4, 7, 2, 19, 4, 6, 32}
+	// for _, number := range numbers {
+	// 	stream.Send(&maximumpb.MaxEveryoneRequest{
+	// 		Maximum: &maximumpb.Maximum{
+	// 			Number: number,
+	// 		},
+	// 	})
+	// }
 
 	requests := []*maximumpb.MaxEveryoneRequest{
 		&maximumpb.MaxEveryoneRequest{
