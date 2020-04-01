@@ -8,6 +8,7 @@ import (
 
 	"github.com/nexlight101/grpc-go-course/greet/greet_server/greetpb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials"
 )
 
 // Create server struct
@@ -31,8 +32,21 @@ func main() {
 	if err != nil {
 		log.Fatalf("Failed to listen: %v ", err)
 	}
+
+	tls := false
+	opts := []grpc.ServerOption{}
+	if tls {
+		certFile := "../../ssl/server.crt"
+		keyFile := "../../ssl/server.pem"
+		creds, sslErr := credentials.NewServerTLSFromFile(certFile, keyFile)
+		if sslErr != nil {
+			log.Fatalf("Failed loading certificates: %v", sslErr)
+			return
+		}
+		opts = append(opts, grpc.Creds(creds))
+	}
 	// Create a new grpc server.
-	s := grpc.NewServer()
+	s := grpc.NewServer(opts...)
 	greetpb.RegisterGreetServiceServer(s, &server{})
 	// Serve the listener.
 	if err := s.Serve(lis); err != nil {
