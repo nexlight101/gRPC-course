@@ -9,6 +9,7 @@ import (
 
 	"github.com/nexlight101/grpc-go-course/calculator/calc_server/calcpb"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/reflection"
 )
 
 // Create server struct
@@ -49,6 +50,8 @@ func main() {
 	}
 	// Create a new grpc server.
 	s := grpc.NewServer()
+	// Register reflection service on gRPC server.
+	reflection.Register(s)
 	calcpb.RegisterSumServiceServer(s, &server{})
 	// Serve the listener.
 	if err := s.Serve(lis); err != nil {
