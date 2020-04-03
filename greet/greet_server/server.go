@@ -9,6 +9,7 @@ import (
 	"github.com/nexlight101/grpc-go-course/greet/greet_server/greetpb"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"google.golang.org/grpc/reflection"
 )
 
 // Create server struct
@@ -48,6 +49,8 @@ func main() {
 	// Create a new grpc server.
 	s := grpc.NewServer(opts...)
 	greetpb.RegisterGreetServiceServer(s, &server{})
+	// Register reflection service on gRPC server.
+	reflection.Register(s)
 	// Serve the listener.
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
